@@ -53,5 +53,3 @@ def adminHome():
   display_info()
 
   root.mainloop()
-
-adminHome()

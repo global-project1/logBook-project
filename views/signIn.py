@@ -4,24 +4,19 @@ sys.path.append(r'C:\Users\Uzer\Desktop\python\logBook')
 from tkinter import *
 import tkinter.messagebox as messageBox
 from models import students, classTab, courses, class_courses, role
+import controllers.coursectrl as courCT
+import controllers.classCT as clsCT
+import controllers.stud_ctrl as studCT
 import shared_data
 
 
 # Functions
-studObj = students.Students()
-courObj = courses.Courses()
-clObj = classTab.classTab()
 
 def SignIn():
 
   def on_enter(event):
     if nameEntry.get() == 'Enter Full Names':
       nameEntry.delete(0,END)
-
-
-  def load_options():
-    return clObj.read()
-  
 
   def checkValues():
     
@@ -39,7 +34,7 @@ def SignIn():
           id = op[0]
           break
       condition =  f"class_id = {id} AND name = '{name}'"
-      status, names = studObj.read(condition)
+      status, names = studCT.load_students(condition)
 
       if(status):
         if(names):
@@ -62,7 +57,7 @@ def SignIn():
   window.geometry("500x500")
   window.title("IAI logBook")
 
-  # window.resizable(False, False)
+  window.resizable(False, False)
 
   # icon
 
@@ -80,7 +75,7 @@ def SignIn():
   nameFrame = Frame(myFrame, width=320, height=1.5, bg="RoyalBlue1")
   nameFrame.place(relx=0.09, rely=0.38)
 
-  status, allOptions = load_options()
+  status, allOptions = clsCT.load_classes()
 
   if(status):
     options = [row[1] for row in allOptions]
