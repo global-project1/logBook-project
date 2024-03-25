@@ -3,11 +3,15 @@ import os
 sys.path.append(r'C:\Users\Uzer\Desktop\python\logBook')
 from tkinter import *
 import tkinter.messagebox as messageBox
-from model.backend import Dbcode
+from models import students, classTab, courses, class_courses, role
 import shared_data
 
 
 # Functions
+studObj = students.Students()
+courObj = courses.Courses()
+clObj = classTab.classTab()
+
 def SignIn():
 
   def on_enter(event):
@@ -16,7 +20,7 @@ def SignIn():
 
 
   def load_options():
-    return Dbcode.select("class")
+    return clObj.read()
   
 
   def checkValues():
@@ -35,7 +39,7 @@ def SignIn():
           id = op[0]
           break
       condition =  f"class_id = {id} AND name = '{name}'"
-      status, names = Dbcode.select("students", condition)
+      status, names = studObj.read(condition)
 
       if(status):
         if(names):

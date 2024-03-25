@@ -3,8 +3,10 @@ import sys
 sys.path.append(r'C:\Users\Uzer\Desktop\python\logBook')
 import tkinter.messagebox as messageBox
 import shared_data
-from model.backend import Dbcode
+from models import students, classTab, courses, role, class_courses
 
+stud = students.Students()
+cour = courses.Courses()
 
 def adminHome():
 
@@ -32,7 +34,7 @@ def adminHome():
   course_label = Label(root, text="Select Course:", font=('Acumin Variable Concept', 10))
   course_label.place(relx=0.07, rely=0.15)
 
-  status, courses = Dbcode.select("courses") 
+  status, courses = cour.read() 
 
   if(status):
     options = [row[1] for row in courses]
