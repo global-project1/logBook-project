@@ -3,11 +3,12 @@ import os
 sys.path.append(r'C:\Users\Uzer\Desktop\python\logBook')
 from tkinter import *
 import tkinter.messagebox as messageBox
-from models import students, classTab, courses, class_courses, role
 import controllers.coursectrl as courCT
 import controllers.classCT as clsCT
 import controllers.stud_ctrl as studCT
-import shared_data
+from . import shared_data
+from PIL import Image, ImageTk
+from tkinter import filedialog
 
 
 # Functions
@@ -59,7 +60,23 @@ def SignIn():
 
   window.resizable(False, False)
 
+  current_dir = os.getcwd()
+  
+  icon_img = current_dir + '/icon.ico'
   # icon
+  window.iconbitmap(icon_img)
+
+  # image
+  img_path = current_dir + '/views/Images/tagging photo.png'
+  image = Image.open(img_path) 
+
+  img_size = (100, 100)
+  image = image.resize(img_size, Image.Resampling.LANCZOS)
+
+  image_tk = ImageTk.PhotoImage(image)
+
+  label = Label(window, image=image_tk)
+  label.place(relx=0.4, rely=0.025)
 
   myFrame = Frame(window, bg="#fff", width="400", height="300")
   myFrame.place(relx=0.5, rely=0.5, anchor=CENTER)
@@ -93,6 +110,5 @@ def SignIn():
 
   loginBtn = Button(myFrame, bg="RoyalBlue1", height=2, width=17, font=('Helvetica', 12, 'bold'), fg="alice blue", text="Login", bd=0, command = checkValues)
   loginBtn.place(relx=0.25, rely=0.7)
-
 
   window.mainloop()

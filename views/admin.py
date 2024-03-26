@@ -2,7 +2,7 @@ from tkinter import *
 import sys
 sys.path.append(r'C:\Users\Uzer\Desktop\python\logBook')
 import tkinter.messagebox as messageBox
-import shared_data
+from . import shared_data
 from models import students, classTab, courses, role, class_courses
 
 stud = students.Students()
